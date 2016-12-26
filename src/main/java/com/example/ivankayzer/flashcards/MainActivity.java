@@ -13,6 +13,7 @@ import android.database.sqlite.*;
 public class MainActivity extends AppCompatActivity {
 
     Button addWord;
+    Button allWords;
     EditText englishWord;
     EditText polishWord;
 
@@ -24,12 +25,21 @@ public class MainActivity extends AppCompatActivity {
         addWord = (Button) findViewById(R.id.addWord);
         englishWord = (EditText) findViewById(R.id.englishWord);
         polishWord = (EditText) findViewById(R.id.polishWord);
+        allWords = (Button) findViewById(R.id.viewAll);
+
+        final Intent intent = new Intent(MainActivity.this, words.class);
 
         addWord.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, words.class);
                 databaseSave(englishWord.getText().toString(), polishWord.getText().toString());
+                startActivity(intent);
+            }
+        });
+
+        allWords.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 startActivity(intent);
             }
         });
