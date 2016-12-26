@@ -23,18 +23,6 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
-    <TextView
-        android:text="English"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textView"
-        android:layout_alignLeft="@+id/textView"
-        android:layout_alignStart="@+id/textView"
-        android:layout_marginLeft="14dp"
-        android:layout_marginStart="14dp"
-        android:layout_marginTop="32dp"
-        android:id="@+id/textEnglish" />
-
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -43,48 +31,9 @@
         android:layout_below="@+id/textEnglish"
         android:layout_alignLeft="@+id/textEnglish"
         android:layout_alignStart="@+id/textEnglish"
-        android:id="@+id/englishWord" />
-
-    <TextView
-        android:text="Polish"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/englishWord"
-        android:layout_alignLeft="@+id/englishWord"
-        android:layout_alignStart="@+id/englishWord"
-        android:layout_marginTop="36dp"
-        android:id="@+id/textView4" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:ems="10"
-        android:layout_below="@+id/textView4"
-        android:layout_alignLeft="@+id/textView4"
-        android:layout_alignStart="@+id/textView4"
-        android:id="@+id/polishWord" />
-
-    <Button
-        android:text="Add"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="76dp"
-        android:id="@+id/addWord"
-        android:layout_below="@+id/polishWord"
-        android:layout_toRightOf="@+id/textEnglish"
-        android:layout_toEndOf="@+id/textEnglish" />
-
-    <Button
-        android:text="Words"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/addWord"
-        android:layout_toRightOf="@+id/addWord"
-        android:layout_toEndOf="@+id/addWord"
-        android:layout_marginLeft="23dp"
-        android:layout_marginStart="23dp"
-        android:id="@+id/viewAll" />
+        android:id="@+id/englishWord"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
     <Button
         android:text="Learn"
@@ -97,5 +46,60 @@
         android:layout_alignStart="@+id/addWord"
         android:layout_alignRight="@+id/viewAll"
         android:layout_alignEnd="@+id/viewAll" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:id="@+id/polishWord"
+        android:layout_below="@+id/textView4"
+        android:layout_alignLeft="@+id/textView4"
+        android:layout_alignStart="@+id/textView4"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:text="English"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:id="@+id/textEnglish"
+        android:layout_below="@+id/textView"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:text="Polish"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:id="@+id/textView4"
+        android:layout_below="@+id/englishWord"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:text="Words"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="51dp"
+        android:layout_marginStart="51dp"
+        android:id="@+id/viewAll"
+        android:layout_above="@+id/learnButton"
+        android:layout_toRightOf="@+id/addWord"
+        android:layout_toEndOf="@+id/addWord" />
+
+    <Button
+        android:text="Add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="76dp"
+        android:id="@+id/addWord"
+        android:layout_below="@+id/polishWord"
+        android:layout_toRightOf="@+id/textEnglish"
+        android:layout_toEndOf="@+id/textEnglish"
+        android:layout_marginLeft="18dp"
+        android:layout_marginStart="18dp" />
 
 </RelativeLayout>

@@ -1,13 +1,16 @@
 package com.example.ivankayzer.flashcards;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.content.DialogInterface;
 
 import org.w3c.dom.Text;
 
@@ -33,6 +36,7 @@ public class PlayActivity extends AppCompatActivity {
         playSubmit = (Button) findViewById(R.id.playSubmit);
         playTranslation = (EditText) findViewById(R.id.playTranslation);
         playScore = (TextView) findViewById(R.id.playScore);
+        playSkip = (Button) findViewById(R.id.playSkip);
 
         allWords = getAllWords();
 
@@ -47,6 +51,7 @@ public class PlayActivity extends AppCompatActivity {
                 } else {
                     playScoreValue--;
                 }
+                checkNegative(playScoreValue);
                 playScore.setText(Integer.toString(playScoreValue));
                 resetFields();
                 init();
@@ -67,7 +72,7 @@ public class PlayActivity extends AppCompatActivity {
 
     public int randomWordNumber() {
         Random rnd = new Random();
-        return rnd.nextInt(countWords() - 1) + 1;
+        return rnd.nextInt(countWords());
     }
 
     public boolean checkWord(String input) {
@@ -81,8 +86,25 @@ public class PlayActivity extends AppCompatActivity {
 
     public void init() {
         int random = randomWordNumber();
-        allWords.move(random);
+        allWords.moveToPosition(random);
         playWord.setText(allWords.getString(0));
         correct = allWords.getString(1);
+    }
+
+    public void checkNegative(int value) {
+        if(value < 0) {
+            AlertDialog.Builder dlgAlert  = new AlertDialog.Builder(this);
+            dlgAlert.setMessage("You Lost!");
+            dlgAlert.setTitle("");
+            dlgAlert.setPositiveButton("Back to main menu",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            Intent main = new Intent(PlayActivity.this, MainActivity.class);
+                            startActivity(main);
+                        }
+                    });
+            dlgAlert.setCancelable(true);
+            dlgAlert.create().show();
+        }
     }
 }
