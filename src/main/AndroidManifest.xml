@@ -15,7 +15,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".words"></activity>
+        <activity android:name=".words" />
+        <activity android:name=".Database"></activity>
     </application>
 
 </manifest>

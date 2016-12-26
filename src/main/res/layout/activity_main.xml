@@ -71,9 +71,21 @@
         android:text="Add"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/polishWord"
-        android:layout_centerHorizontal="true"
         android:layout_marginTop="76dp"
-        android:id="@+id/addWord" />
+        android:id="@+id/addWord"
+        android:layout_below="@+id/polishWord"
+        android:layout_toRightOf="@+id/textEnglish"
+        android:layout_toEndOf="@+id/textEnglish" />
+
+    <Button
+        android:text="Words"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/addWord"
+        android:layout_toRightOf="@+id/addWord"
+        android:layout_toEndOf="@+id/addWord"
+        android:layout_marginLeft="23dp"
+        android:layout_marginStart="23dp"
+        android:id="@+id/viewAll" />
 
 </RelativeLayout>

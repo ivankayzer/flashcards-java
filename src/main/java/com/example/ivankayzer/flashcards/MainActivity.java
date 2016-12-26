@@ -1,11 +1,14 @@
 package com.example.ivankayzer.flashcards;
 
+import android.content.ContentValues;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.database.sqlite.*;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -13,7 +16,11 @@ public class MainActivity extends AppCompatActivity {
     EditText englishWord;
     EditText polishWord;
 
-    public void init() {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
         addWord = (Button) findViewById(R.id.addWord);
         englishWord = (EditText) findViewById(R.id.englishWord);
         polishWord = (EditText) findViewById(R.id.polishWord);
@@ -22,17 +29,23 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, words.class);
-                intent.putExtra("english", englishWord.getText().toString());
-                intent.putExtra("polish", polishWord.getText().toString());
+                databaseSave(englishWord.getText().toString(), polishWord.getText().toString());
                 startActivity(intent);
             }
         });
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        init();
+    SQLiteDatabase databaseConnect() {
+        SQLiteDatabase wordsDatabase = openOrCreateDatabase("flashcards", MODE_PRIVATE, null);
+        wordsDatabase.execSQL("create table if not exists words(english varchar, polish varchar);");
+        return wordsDatabase;
+    }
+
+    private void databaseSave(String english, String polish) {
+        SQLiteDatabase db = databaseConnect();
+        ContentValues values = new ContentValues();
+        values.put("english", english);
+        values.put("polish", polish);
+        db.insert("words", null, values);
     }
 }
