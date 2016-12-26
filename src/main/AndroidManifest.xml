@@ -16,7 +16,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".words" />
-        <activity android:name=".Database"></activity>
+        <activity android:name=".Database" />
+        <activity android:name=".play"></activity>
     </application>
 
 </manifest>
