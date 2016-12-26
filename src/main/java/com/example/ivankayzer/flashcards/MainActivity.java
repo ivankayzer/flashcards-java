@@ -68,6 +68,12 @@ public class MainActivity extends AppCompatActivity {
             values.put("english", english);
             values.put("polish", polish);
             db.insert("WordsActivity", null, values);
+            clearFields();
         }
+    }
+
+    public void clearFields() {
+        englishWord.setText("");
+        polishWord.setText("");
     }
 }

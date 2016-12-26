@@ -94,12 +94,12 @@
         android:text="Add"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="76dp"
+        android:layout_marginTop="78dp"
         android:id="@+id/addWord"
         android:layout_below="@+id/polishWord"
         android:layout_toRightOf="@+id/textEnglish"
         android:layout_toEndOf="@+id/textEnglish"
-        android:layout_marginLeft="18dp"
-        android:layout_marginStart="18dp" />
+        android:layout_marginLeft="12dp"
+        android:layout_marginStart="12dp" />
 
 </RelativeLayout>
