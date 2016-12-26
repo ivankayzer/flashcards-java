@@ -18,7 +18,7 @@ import java.util.Random;
 
 public class PlayActivity extends AppCompatActivity {
 
-    TextView playWord, playScore, playScoreText;
+    TextView playWord, playScore;
     EditText playTranslation;
     Button playSubmit, playSkip, back;
 
@@ -37,6 +37,7 @@ public class PlayActivity extends AppCompatActivity {
         playTranslation = (EditText) findViewById(R.id.playTranslation);
         playScore = (TextView) findViewById(R.id.playScore);
         playSkip = (Button) findViewById(R.id.playSkip);
+        back = (Button) findViewById(R.id.back);
 
         allWords = getAllWords();
 
@@ -55,6 +56,26 @@ public class PlayActivity extends AppCompatActivity {
                 playScore.setText(Integer.toString(playScoreValue));
                 resetFields();
                 init();
+            }
+        });
+
+        playSkip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int playScoreValue = Integer.parseInt(playScore.getText().toString());
+                playScoreValue--;
+                checkNegative(playScoreValue);
+                playScore.setText(Integer.toString(playScoreValue));
+                resetFields();
+                init();
+            }
+        });
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent main = new Intent(PlayActivity.this, MainActivity.class);
+                startActivity(main);
             }
         });
 
