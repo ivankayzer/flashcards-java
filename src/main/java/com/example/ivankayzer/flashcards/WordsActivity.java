@@ -8,7 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
 
-public class words extends AppCompatActivity {
+public class WordsActivity extends AppCompatActivity {
 
     TextView words;
 
@@ -36,8 +36,8 @@ public class words extends AppCompatActivity {
 
     public Cursor getAllWords() {
         SQLiteDatabase wordsDatabase = openOrCreateDatabase("flashcards", MODE_PRIVATE, null);
-        wordsDatabase.execSQL("create table if not exists words(english varchar, polish varchar);");
-        return wordsDatabase.rawQuery("select * from words", null);
+        wordsDatabase.execSQL("create table if not exists WordsActivity(english varchar, polish varchar);");
+        return wordsDatabase.rawQuery("select * from WordsActivity", null);
     }
 
 }
