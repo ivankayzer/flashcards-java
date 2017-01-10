@@ -3,6 +3,7 @@ package com.example.ivankayzer.flashcards;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -49,9 +50,12 @@ public class PlayActivity extends AppCompatActivity {
                 int playScoreValue = Integer.parseInt(playScore.getText().toString());
                 if(checkWord(playTranslation.getText().toString())) {
                     playScoreValue++;
+                    paintGreen();
                 } else {
                     playScoreValue--;
+                    paintRed();
                 }
+
                 checkNegative(playScoreValue);
                 playScore.setText(Integer.toString(playScoreValue));
                 resetFields();
@@ -128,4 +132,13 @@ public class PlayActivity extends AppCompatActivity {
             dlgAlert.create().show();
         }
     }
+
+    public void paintRed() {
+        playWord.setTextColor(Color.RED);
+    }
+
+    public void paintGreen() {
+        playWord.setTextColor(Color.GREEN);
+    }
+
 }

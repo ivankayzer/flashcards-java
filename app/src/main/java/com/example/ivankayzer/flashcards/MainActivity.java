@@ -1,7 +1,9 @@
 package com.example.ivankayzer.flashcards;
 
 import android.content.ContentValues;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -35,8 +37,17 @@ public class MainActivity extends AppCompatActivity {
         addWord.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                databaseSave(englishWord.getText().toString(), polishWord.getText().toString());
-                startActivity(wordsIntent);
+                if (englishWord.length() == 0 || polishWord.length() == 0) {
+                    AlertDialog.Builder warnDialog  = new AlertDialog.Builder(MainActivity.this);
+                    warnDialog.setMessage("Fill in both fields to add the word");
+                    warnDialog.setPositiveButton("Ok", null);
+                    warnDialog.setTitle("");
+                    warnDialog.setCancelable(true);
+                    warnDialog.create().show();
+                } else {
+                    databaseSave(englishWord.getText().toString(), polishWord.getText().toString());
+                    startActivity(wordsIntent);
+                }
             }
         });
 
