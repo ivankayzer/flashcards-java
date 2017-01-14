@@ -4,12 +4,14 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
+import android.os.Handler;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.content.DialogInterface;
 
@@ -25,6 +27,10 @@ public class PlayActivity extends AppCompatActivity {
     private Database database;
     Cursor allWords;
     String correct;
+    String wordPair;
+    int playScoreValue;
+    private Handler timer;
+    ProgressBar loader;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,8 +44,9 @@ public class PlayActivity extends AppCompatActivity {
         playScore = (TextView) findViewById(R.id.playScore);
         playSkip = (Button) findViewById(R.id.playSkip);
         back = (Button) findViewById(R.id.back);
-
+        timer = new Handler();
         database = new Database(this);
+        loader = (ProgressBar) findViewById(R.id.loader);
 
         SQLiteDatabase db = database.getReadableDatabase();
         allWords = db.rawQuery("select * from words", null);
@@ -49,19 +56,29 @@ public class PlayActivity extends AppCompatActivity {
         playSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int playScoreValue = Integer.parseInt(playScore.getText().toString());
+                playScoreValue = Integer.parseInt(playScore.getText().toString());
                 if(checkWord(playTranslation.getText().toString())) {
                     playScoreValue++;
-                    paintGreen();
+                    showWordPair(Color.GREEN);
                 } else {
                     playScoreValue--;
-                    paintRed();
+                    showWordPair(Color.RED);
                 }
 
                 checkNegative(playScoreValue);
                 playScore.setText(Integer.toString(playScoreValue));
-                resetFields();
-                init();
+                hideButtons();
+                loader.setVisibility(View.VISIBLE);
+
+                timer.postDelayed(new Runnable() {
+                    public void run() {
+                        loader.setVisibility(View.INVISIBLE);
+                        resetFields();
+                        init();
+                        showButtons();
+                    }
+                }, 2200);
+
             }
         });
 
@@ -101,6 +118,7 @@ public class PlayActivity extends AppCompatActivity {
     }
 
     public void resetFields() {
+        playWord.setTextColor(Color.WHITE);
         playWord.setText("");
         playTranslation.setText("");
     }
@@ -110,6 +128,7 @@ public class PlayActivity extends AppCompatActivity {
         allWords.moveToPosition(random);
         playWord.setText(allWords.getString(1));
         correct = allWords.getString(2);
+        wordPair = allWords.getString(1) + " - " + correct;
     }
 
     public void checkNegative(int value) {
@@ -129,12 +148,19 @@ public class PlayActivity extends AppCompatActivity {
         }
     }
 
-    public void paintRed() {
-        playWord.setTextColor(Color.RED);
+    public void showWordPair(int color) {
+        playWord.setTextColor(color);
+        playWord.setText(wordPair);
     }
 
-    public void paintGreen() {
-        playWord.setTextColor(Color.GREEN);
+    public void hideButtons() {
+        playSubmit.setVisibility(View.INVISIBLE);
+        playSkip.setVisibility(View.INVISIBLE);
+    }
+
+    public void showButtons() {
+        playSubmit.setVisibility(View.VISIBLE);
+        playSkip.setVisibility(View.VISIBLE);
     }
 
 }

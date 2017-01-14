@@ -94,4 +94,14 @@
         android:layout_alignLeft="@+id/playSkip"
         android:layout_alignStart="@+id/playSkip" />
 
+    <ProgressBar
+        android:id="@+id/loader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        android:visibility="invisible"
+        android:layout_alignTop="@+id/playSubmit"
+        android:layout_toLeftOf="@+id/playScore"
+        android:layout_toStartOf="@+id/playScore" />
+
 </RelativeLayout>
