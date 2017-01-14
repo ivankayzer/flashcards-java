@@ -87,7 +87,7 @@ public class PlayActivity extends AppCompatActivity {
 
     public Cursor getAllWords() {
         SQLiteDatabase wordsDatabase = openOrCreateDatabase("flashcards", MODE_PRIVATE, null);
-        wordsDatabase.execSQL("create table if not exists WordsActivity(english varchar, polish varchar);");
+        wordsDatabase.execSQL("create table if not exists WordsActivity(_id INTEGER PRIMARY KEY AUTOINCREMENT, english VARCHAR, polish VARCHAR);");
         return wordsDatabase.rawQuery("select * from WordsActivity", null);
     }
 
