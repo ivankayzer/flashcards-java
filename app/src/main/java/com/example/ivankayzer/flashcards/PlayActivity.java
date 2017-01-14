@@ -22,9 +22,8 @@ public class PlayActivity extends AppCompatActivity {
     TextView playWord, playScore;
     EditText playTranslation;
     Button playSubmit, playSkip, back;
-
+    private Database database;
     Cursor allWords;
-
     String correct;
 
     @Override
@@ -40,7 +39,10 @@ public class PlayActivity extends AppCompatActivity {
         playSkip = (Button) findViewById(R.id.playSkip);
         back = (Button) findViewById(R.id.back);
 
-        allWords = getAllWords();
+        database = new Database(this);
+
+        SQLiteDatabase db = database.getReadableDatabase();
+        allWords = db.rawQuery("select * from words", null);
 
         init();
 
@@ -85,12 +87,6 @@ public class PlayActivity extends AppCompatActivity {
 
     }
 
-    public Cursor getAllWords() {
-        SQLiteDatabase wordsDatabase = openOrCreateDatabase("flashcards", MODE_PRIVATE, null);
-        wordsDatabase.execSQL("create table if not exists WordsActivity(_id INTEGER PRIMARY KEY AUTOINCREMENT, english VARCHAR, polish VARCHAR);");
-        return wordsDatabase.rawQuery("select * from WordsActivity", null);
-    }
-
     public int countWords() {
         return allWords.getCount();
     }
@@ -112,8 +108,8 @@ public class PlayActivity extends AppCompatActivity {
     public void init() {
         int random = randomWordNumber();
         allWords.moveToPosition(random);
-        playWord.setText(allWords.getString(0));
-        correct = allWords.getString(1);
+        playWord.setText(allWords.getString(1));
+        correct = allWords.getString(2);
     }
 
     public void checkNegative(int value) {

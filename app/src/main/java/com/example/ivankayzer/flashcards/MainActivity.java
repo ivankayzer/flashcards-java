@@ -19,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
     Button learn;
     EditText englishWord;
     EditText polishWord;
+    private Database database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +34,8 @@ public class MainActivity extends AppCompatActivity {
 
         final Intent wordsIntent = new Intent(MainActivity.this, WordsActivity.class);
         final Intent playIntent = new Intent(MainActivity.this, PlayActivity.class);
+
+        database = new Database(this);
 
         addWord.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,19 +69,20 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    SQLiteDatabase databaseConnect() {
-        SQLiteDatabase wordsDatabase = openOrCreateDatabase("flashcards", MODE_PRIVATE, null);
-        wordsDatabase.execSQL("create table if not exists WordsActivity(_id INTEGER PRIMARY KEY AUTOINCREMENT, english VARCHAR, polish VARCHAR);");
-        return wordsDatabase;
-    }
+//    SQLiteDatabase databaseConnect() {
+//        SQLiteDatabase wordsDatabase = openOrCreateDatabase("flashcards", MODE_PRIVATE, null);
+//        wordsDatabase.execSQL("create table if not exists WordsActivity(_id INTEGER PRIMARY KEY AUTOINCREMENT, english VARCHAR, polish VARCHAR);");
+//        return wordsDatabase;
+//    }
 
     private void databaseSave(String english, String polish) {
         if(english.length() != 0 && polish.length() != 0) {
-            SQLiteDatabase db = databaseConnect();
+            SQLiteDatabase db = database.getWritableDatabase();
             ContentValues values = new ContentValues();
             values.put("english", english);
             values.put("polish", polish);
-            db.insert("WordsActivity", null, values);
+            db.insert("words", null, values);
+            db.close();
             clearFields();
         }
     }
