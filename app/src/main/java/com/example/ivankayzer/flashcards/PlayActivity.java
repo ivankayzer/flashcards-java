@@ -122,27 +122,22 @@ public class PlayActivity extends AppCompatActivity {
     }
 
     public void init() {
-        int random = randomWordNumber();
-        allWords.moveToPosition(random);
-        playWord.setText(allWords.getString(1));
-        correct = allWords.getString(2);
-        wordPair = allWords.getString(1) + " - " + correct;
+        if (countWords() > 0) {
+            int random = randomWordNumber();
+            allWords.moveToPosition(random);
+            playWord.setText(allWords.getString(1));
+            correct = allWords.getString(2);
+            wordPair = allWords.getString(1) + " - " + correct;
+        } else {
+            AlertDialog.Builder alert = dialog("Add words to list first", "Back to main menu");
+            alert.create().show();
+        }
     }
 
     public void checkNegative(int value) {
         if(value < 0) {
-            AlertDialog.Builder dlgAlert  = new AlertDialog.Builder(this);
-            dlgAlert.setMessage("You lose!");
-            dlgAlert.setTitle("");
-            dlgAlert.setPositiveButton("Back to main menu",
-                    new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            Intent main = new Intent(PlayActivity.this, MainActivity.class);
-                            startActivity(main);
-                        }
-                    });
-            dlgAlert.setCancelable(true);
-            dlgAlert.create().show();
+            AlertDialog.Builder alert = dialog("You lose!", "Back to main menu");
+            alert.create().show();
         } else {
             checkWin();
             playScore.setText(Integer.toString(playScoreValue));
@@ -166,19 +161,24 @@ public class PlayActivity extends AppCompatActivity {
 
     public void checkWin() {
         if (playScoreValue > countWords()) {
-            AlertDialog.Builder dlgAlert = new AlertDialog.Builder(this);
-            dlgAlert.setMessage("You win!");
-            dlgAlert.setTitle("");
-            dlgAlert.setPositiveButton("Back to main menu",
-                    new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            Intent main = new Intent(PlayActivity.this, MainActivity.class);
-                            startActivity(main);
-                        }
-                    });
-            dlgAlert.setCancelable(true);
-            dlgAlert.create().show();
+            AlertDialog.Builder alert = dialog("You win!", "Back to main menu");
+            alert.create().show();
         }
+    }
+
+    AlertDialog.Builder dialog(String message, String buttonText) {
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setMessage(message);
+        alert.setTitle("");
+        alert.setPositiveButton(buttonText,
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent main = new Intent(PlayActivity.this, MainActivity.class);
+                        startActivity(main);
+                    }
+                });
+        alert.setCancelable(false);
+        return alert;
     }
 
 }
